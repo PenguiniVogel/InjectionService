@@ -17,7 +17,7 @@ declare module InjectionService {
      * @param code The code to append
      * @param appendOn Where to append, head or body (head is default)
      */
-    function injectCode(code: string, appendOn?: AppendOnType): void;
+    function injectCode(code: string, appendOn?: AppendOnType | 'head' | 'body'): void;
     /**
      * Inject css <br>
      * Appends css to the head in a new style tag

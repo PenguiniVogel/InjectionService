@@ -32,7 +32,7 @@ module InjectionService {
      * @param code The code to append
      * @param appendOn Where to append, head or body (head is default)
      */
-    export function injectCode(code: string, appendOn: AppendOnType = AppendOnType.HEAD): void {
+    export function injectCode(code: string, appendOn: AppendOnType | 'head' | 'body' = AppendOnType.HEAD): void {
         if (cspMeta) {
             let s = document.createElement('script');
 

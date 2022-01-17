@@ -5,13 +5,17 @@ Provide ways to inject scripts or css with extensions on manifest V3
 ---
 ##### Code Injection
 Example - TypeScript:
-```TypeScript
+```JavaScript
 InjectionService.injectCode(`console.log('Hi!')`);
 // OR ---
 InjectionService.injectCode(`console.log('Hi!')`, AppendOnType.HEAD);
+// OR ---
+InjectionService.injectCode(`console.log('Hi!')`, 'head');
 
 // You can also choose to append to <body> instead
 InjectionService.injectCode(`console.log('Hi!')`, AppendOnType.BODY);
+// OR ---
+InjectionService.injectCode(`console.log('Hi!')`, 'body');
 ```
 Example - JavaScript:
 ```JavaScript
