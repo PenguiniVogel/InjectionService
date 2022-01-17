@@ -49,7 +49,7 @@ module InjectionService {
             let inner = `s.innerHTML=\`${code}\``;
             if (encode_content) {
                 code = btoa(encodeURIComponent(code));
-                inner = `s.innerHTML=decodeURIComponent(atob(${code}))`;
+                inner = `s.innerHTML=decodeURIComponent(atob('${code}'))`;
             }
 
             a.setAttribute('style', 'display: none !important;');
@@ -74,7 +74,7 @@ module InjectionService {
         let inner = `s.innerHTML=\`${css}\``;
         if (encode_content) {
             css = btoa(encodeURIComponent(css));
-            inner = `s.innerHTML=decodeURIComponent(atob(${css}))`;
+            inner = `s.innerHTML=decodeURIComponent(atob('${css}'))`;
         }
 
         a.setAttribute('style', 'display: none !important;');
