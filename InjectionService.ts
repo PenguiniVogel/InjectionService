@@ -7,6 +7,8 @@ module InjectionService {
 
     let cspMeta: boolean = false;
 
+    export let encode_content: boolean = false;
+
     /**
      * CAUTION - This is really, really dangerous! <br>
      * Please for the love of god never ever use this unless you really have to.
@@ -44,8 +46,14 @@ module InjectionService {
         } else {
             let a = document.createElement('a');
 
+            let inner = `s.innerHTML=\`${code}\``;
+            if (encode_content) {
+                code = btoa(encodeURIComponent(code));
+                inner = `s.innerHTML=decodeURIComponent(atob(${code}))`;
+            }
+
             a.setAttribute('style', 'display: none !important;');
-            a.setAttribute('onclick', `(function() { let s = document.createElement('script');s.setAttribute('data-isl', 'injected-script');s.innerHTML=\`${code}\`;document.querySelector('${appendOn}').appendChild(s); })();`);
+            a.setAttribute('onclick', `(function() { let s = document.createElement('script');s.setAttribute('data-isl', 'injected-script');${inner};document.querySelector('${appendOn}').appendChild(s); })();`);
 
             document.querySelector('body').appendChild(a);
 
@@ -63,8 +71,14 @@ module InjectionService {
     export function injectCSS(css: string): void {
         let a = document.createElement('a');
 
+        let inner = `s.innerHTML=\`${css}\``;
+        if (encode_content) {
+            css = btoa(encodeURIComponent(css));
+            inner = `s.innerHTML=decodeURIComponent(atob(${css}))`;
+        }
+
         a.setAttribute('style', 'display: none !important;');
-        a.setAttribute('onclick', `(function() { let s = document.createElement('style');s.setAttribute('data-isl', 'injected-style');s.innerHTML=\`${css}\`;document.querySelector('head').appendChild(s); })();`);
+        a.setAttribute('onclick', `(function() { let s = document.createElement('style');s.setAttribute('data-isl', 'injected-style');${inner};document.querySelector('head').appendChild(s); })();`);
 
         document.querySelector('body').appendChild(a);
 

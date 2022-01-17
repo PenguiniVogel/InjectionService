@@ -3,6 +3,7 @@ declare module InjectionService {
         HEAD = "head",
         BODY = "body"
     }
+    let encode_content: boolean;
     /**
      * CAUTION - This is really, really dangerous! <br>
      * Please for the love of god never ever use this unless you really have to.
