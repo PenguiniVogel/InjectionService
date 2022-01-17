@@ -1,0 +1,6 @@
+# Ignore directories
+.idea
+TestExtension/out
+
+# Ignore files
+*.js

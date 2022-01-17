@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "module": "None",
+        "target": "es3",
+        "sourceMap": false,
+        "declaration": true
+    },
+    "include": [
+        "*.ts"
+    ]
+}

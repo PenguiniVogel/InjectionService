@@ -1,0 +1,19 @@
+{
+    "name": "ISL Test",
+    "version": "1.0.0",
+    "description": "Test InjectionServiceLib",
+    "manifest_version": 3,
+    "content_scripts": [
+        {
+            "js": [
+                "out/extension.js"
+            ],
+            "matches": [
+                "*://localhost:*/*"
+            ],
+            "run_at": "document_end"
+        }
+    ],
+    "permissions": [],
+    "icons": {}
+}

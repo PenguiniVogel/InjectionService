@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "module": "None",
+        "target": "es3",
+        "sourceMap": false,
+        "outFile": "out/extension.js",
+        "removeComments": true
+    },
+    "include": [
+        "../InjectionService.ts",
+        "Test.ts"
+    ]
+}
