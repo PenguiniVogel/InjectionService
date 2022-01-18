@@ -7,7 +7,7 @@
         "removeComments": true
     },
     "include": [
-        "../InjectionService.ts",
+        "../InjectionServiceLib.ts",
         "Test.ts"
     ]
 }

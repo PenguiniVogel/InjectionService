@@ -11,7 +11,7 @@
             "matches": [
                 "*://localhost:*/*"
             ],
-            "run_at": "document_end"
+            "run_at": "document_start"
         }
     ],
     "permissions": [],
