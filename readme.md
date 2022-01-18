@@ -12,7 +12,7 @@ The InjectionServiceLib should be put first as `document_start` content script.
     "js": [
         "InjectionServiceLib.js"
     ],
-    "matches": [ ... ],
+    "matches": [ "..." ],
     "run_at": "document_start"
 }
 ```
@@ -73,11 +73,11 @@ The `onReady` function provides a way to know when the InjectionServiceLib can i
 You can also choose to execute or run your own actions at this time. The callback / event gets
 triggered almost immediately after the base document (e.g. &lt;head&gt; and &lt;body&gt;) are available.
 ```JavaScript
-InjectionServiceLib.onReady(function() { ... });
+InjectionServiceLib.onReady(function() { /*magic code*/ });
 ```
 Alternatively you can also listen to the event `EVENT_ISL_READY` directly. <br>
 Note: This only fires <u>***once***</u> when the page is loaded initially, you are better
 off adding your event handler to `onReady` that executes even after the page was loaded.
 ```JavaScript
-window.addEventListener('EVENT_ISL_READY', function() { ... });
+window.addEventListener('EVENT_ISL_READY', function() { /*magic code*/ });
 ```
