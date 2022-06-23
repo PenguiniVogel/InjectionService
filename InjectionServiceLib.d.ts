@@ -1,6 +1,8 @@
 declare module InjectionServiceLib {
     let encode_content: boolean;
     let append_on_document: boolean;
+    let attempt_safe: boolean;
+    let html_check_run: 'html' | 'head' | 'body';
     function onReady(callback: () => void): void;
     /**
      * CAUTION - This is really, really dangerous! <br>
@@ -15,8 +17,9 @@ declare module InjectionServiceLib {
      *
      * @param code The code to append
      * @param appendOn Where to append, head or body (head is default)
+     * @param destroyAfter Destroy the added script tag after injection
      */
-    function injectCode(code: string, appendOn?: 'head' | 'body'): void;
+    function injectCode(code: string, appendOn?: 'html' | 'head' | 'body', destroyAfter?: boolean): void;
     /**
      * Inject css <br>
      * Appends css to the head in a new style tag

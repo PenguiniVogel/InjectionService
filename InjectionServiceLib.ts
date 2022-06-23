@@ -9,6 +9,8 @@ module InjectionServiceLib {
 
     export let encode_content: boolean = true;
     export let append_on_document: boolean = false;
+    export let attempt_safe: boolean = true;
+    export let html_check_run: 'html' | 'head' | 'body' = 'head';
 
     export function onReady(callback: () => void): void {
         if (ready) {
@@ -45,9 +47,26 @@ module InjectionServiceLib {
      *
      * @param code The code to append
      * @param appendOn Where to append, head or body (head is default)
+     * @param destroyAfter Destroy the added script tag after injection
      */
-    export function injectCode(code: string, appendOn: 'head' | 'body' = 'head'): void {
-        onReady(() => {
+    export function injectCode(code: string, appendOn: 'html' | 'head' | 'body' = 'head', destroyAfter: boolean = false): void {
+        function _internalInjectSafe(): void {
+            let script;
+            try {
+                script = document.createElement('script');
+                script.appendChild(document.createTextNode(code));
+                (document.querySelector(appendOn) || document.head || document.documentElement || document).appendChild(script);
+            } catch (ex) {
+                _internalInjectEncoded();
+            }
+
+            if (script && destroyAfter) {
+                script.remove();
+                script.textContent = '';
+            }
+        }
+
+        function _internalInjectEncoded(): void {
             if (cspMeta) {
                 let s = document.createElement('script');
 
@@ -72,6 +91,14 @@ module InjectionServiceLib {
 
                 a.click();
                 a.remove();
+            }
+        }
+
+        onReady(() => {
+            if (attempt_safe) {
+                _internalInjectSafe();
+            } else {
+                _internalInjectEncoded();
             }
         });
     }
@@ -103,9 +130,8 @@ module InjectionServiceLib {
     }
 
     // Check if ISL can execute, if used with document_start
-
     function checkReady(): void {
-        if (!!document.querySelector('head')) {
+        if (!!document.querySelector(html_check_run)) {
             ready = true;
             console.debug(`[InjectionService] Ready (took x${readyRetry}), injecting x${injectionsPending}`);
             window.dispatchEvent(new CustomEvent(ISL_READY));
