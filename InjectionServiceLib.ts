@@ -11,6 +11,7 @@ module InjectionServiceLib {
     export let append_on_document: boolean = false;
     export let attempt_safe: boolean = true;
     export let html_check_run: 'html' | 'head' | 'body' = 'head';
+    export let use_JSLog: boolean = false;
 
     export function onReady(callback: () => void): void {
         if (ready) {
@@ -87,7 +88,9 @@ module InjectionServiceLib {
                 a.setAttribute('style', 'display: none !important;');
                 a.setAttribute('onclick', `(function() { let s = document.createElement('script');s.setAttribute('data-isl', 'injected-script');${inner};document.querySelector('${appendOn}').appendChild(s); })();`);
 
-                if (append_on_document) document.querySelector('head').appendChild(a);
+                if (append_on_document) {
+                    document.querySelector('head').appendChild(a);
+                }
 
                 a.click();
                 a.remove();
@@ -122,7 +125,9 @@ module InjectionServiceLib {
             a.setAttribute('style', 'display: none !important;');
             a.setAttribute('onclick', `(function() { let s = document.createElement('style');s.setAttribute('data-isl', 'injected-style');${inner};document.querySelector('head').appendChild(s); })();`);
 
-            if (append_on_document) document.querySelector('head').appendChild(a);
+            if (append_on_document) {
+                document.querySelector('head').appendChild(a);
+            }
 
             a.click();
             a.remove();
@@ -133,7 +138,14 @@ module InjectionServiceLib {
     function checkReady(): void {
         if (!!document.querySelector(html_check_run)) {
             ready = true;
-            console.debug(`[InjectionService] Ready (took x${readyRetry}), injecting x${injectionsPending}`);
+
+            let message = `Ready (took x${readyRetry}), injecting x${injectionsPending}`;
+            if (use_JSLog && JSLog?.debug) {
+                JSLog.debug(message, 'InjectionService');
+            } else {
+                console.debug(`[InjectionService] ${message}`);
+            }
+
             window.dispatchEvent(new CustomEvent(ISL_READY));
         } else {
             readyRetry ++;

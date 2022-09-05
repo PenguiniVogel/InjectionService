@@ -3,6 +3,7 @@ declare module InjectionServiceLib {
     let append_on_document: boolean;
     let attempt_safe: boolean;
     let html_check_run: 'html' | 'head' | 'body';
+    let use_JSLog: boolean;
     function onReady(callback: () => void): void;
     /**
      * CAUTION - This is really, really dangerous! <br>
